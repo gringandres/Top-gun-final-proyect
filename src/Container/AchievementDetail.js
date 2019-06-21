@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 
-export default class prizesDetail extends Component {
+export default class AchievementDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            prizes: {
-                imgSrc: "",
+            achieve: {
                 name: "",
-                description: "",
                 points: 0
             },
             error: ""
@@ -18,10 +16,10 @@ export default class prizesDetail extends Component {
 
     componentDidMount = () => {
         const { match: { params: { id } } } = this.props;
-        axios.get(`${BASE_LOCAL_ENDPOINT}/prizes/${id}`)
+        axios.get(`${BASE_LOCAL_ENDPOINT}/achievements/${id}`)
             .then(response => {
                 this.setState({
-                    prizes: response.data,
+                    achieve: response.data,
                     error: ''
                 })
             })
@@ -34,18 +32,14 @@ export default class prizesDetail extends Component {
 
     render() {
         const {
-            prizes: {
-                imgSrc,
+            achieve: {
                 name,
-                description,
                 points
             }
         } = this.state;
         return (
             <div >
-                <img src={imgSrc} alt="" />
                 <p><b>name: </b>{name}</p>
-                <p><b>Description: </b>{description}</p>
                 <p><b>points: </b>{points}</p>
             </div>
         );

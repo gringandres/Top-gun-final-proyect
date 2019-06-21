@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AchievementList from '../Container/AchievementList';
 import { Link } from 'react-router-dom';
 
 
@@ -21,6 +22,9 @@ export default class achievements extends Component {
                     <p>Profile</p>
                     <p>Log out</p>
                 </ul>
+                <div>
+                    <AchievementList />
+                </div>
             </>
         )
     }

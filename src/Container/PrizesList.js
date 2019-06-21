@@ -1,47 +1,47 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Person from '../Components2/Person';
+import Prize from '../Components2/Prize';
 import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 
-export default class EmployeesList extends Component {
+
+export default class PrizesList extends Component {
     state = {
-        workers: {
-            info: [],
+        objects:{
+            detail:[],
             error: false
         },
-        workerEror: false
+        objectsError:false
     }
-
 
     componentDidMount = () => {
-        this.getWorker();
+        this.getPrize();
     }
 
-    getWorker = () => {
-        axios.get(`${BASE_LOCAL_ENDPOINT}/employees`)
+    getPrize = () => {
+        axios.get(`${BASE_LOCAL_ENDPOINT}/prizes`)
             .then(response => {
                 this.setState({
-                    workers: {
-                        info: response.data,
+                    objects: {
+                        detail: response.data,
                         error: ''
                     },
-                    workerEror: false
+                    objectsError: false
                 })
             })
             .catch(error => {
                 this.setState({
-                    workers: {
+                    objects: {
                         error: error.message
                     }
                 })
             })
     }
 
-    render() {
+    render(){
         const {
-            workerEror,
-            workers: { info, error }
+            objectsError,
+            objects: { detail, error }
             
         } = this.state;
 
@@ -51,10 +51,10 @@ export default class EmployeesList extends Component {
 
         return (
             <>
-                {workerEror && <p>An error ocurred creating Character</p>}
-                {info.map(({ id, imgSrc, name }) => (
-                    <Link key={id} to={`/employees/${id}`}>
-                        <Person imgSrc={imgSrc} name={name} />
+                {objectsError && <p>An error ocurred creating Character</p>}
+                {detail.map(({ id, imgSrc, name }) => (
+                    <Link key={id} to={`/prizes/${id}`}>
+                        <Prize imgSrc={imgSrc} name={name} />
                     </Link>
                 ))}
             </>

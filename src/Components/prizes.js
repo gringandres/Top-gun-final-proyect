@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PrizesList from '../Container/PrizesList';
 import { Link } from 'react-router-dom';
 
 
@@ -21,6 +22,10 @@ export default class prizes extends Component {
                     <p>Profile</p>
                     <p>Log out</p>
                 </ul>
+                <div>
+                    <PrizesList />
+                </div>
+
             </>
         )
     }

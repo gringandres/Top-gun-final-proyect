@@ -1,37 +1,37 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Person from '../Components2/Person';
+import Achieve from '../Components2/Achieve';
 import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 
-export default class EmployeesList extends Component {
+export default class AchievementList extends Component {
     state = {
-        workers: {
+        achievement: {
             info: [],
             error: false
         },
-        workerEror: false
+        achievementeEror: false
     }
 
 
     componentDidMount = () => {
-        this.getWorker();
+        this.getAchievement();
     }
 
-    getWorker = () => {
-        axios.get(`${BASE_LOCAL_ENDPOINT}/employees`)
+    getAchievement = () => {
+        axios.get(`${BASE_LOCAL_ENDPOINT}/achievements`)
             .then(response => {
                 this.setState({
-                    workers: {
+                    achievement: {
                         info: response.data,
                         error: ''
                     },
-                    workerEror: false
+                    achievementeEror: false
                 })
             })
             .catch(error => {
                 this.setState({
-                    workers: {
+                    achievement: {
                         error: error.message
                     }
                 })
@@ -40,8 +40,8 @@ export default class EmployeesList extends Component {
 
     render() {
         const {
-            workerEror,
-            workers: { info, error }
+            achievementeEror,
+            achievement: { info, error }
             
         } = this.state;
 
@@ -51,10 +51,10 @@ export default class EmployeesList extends Component {
 
         return (
             <>
-                {workerEror && <p>An error ocurred creating Character</p>}
-                {info.map(({ id, imgSrc, name }) => (
-                    <Link key={id} to={`/employees/${id}`}>
-                        <Person imgSrc={imgSrc} name={name} />
+                {achievementeEror && <p>An error ocurred creating Character</p>}
+                {info.map(({ id, points, name }) => (
+                    <Link key={id} to={`/achievements/${id}`}>
+                        <Achieve points={points} name={name} />
                     </Link>
                 ))}
             </>
