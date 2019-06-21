@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import employees from './Components/employees';
+import prizes from './Components/prizes';
+import achievements from './Components/achievements';
+import employeesDetail from './Container/employeesDetail';
+import prizesDetail from './Container/prizesDetail';
+import './css/navbar.css';
+
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Redirect to="/employees" />
+          )}
+        />
+        <Route exact path="/employees" component={employees} />
+        <Route exact path="/employees/:id" component={employeesDetail} />
+        <Route exact path="/prizes" component={prizes} />
+        <Route exact path="/prizes/:id" component={prizesDetail} />
+        <Route exact path="/achievements" component={achievements} />
+
+      </Switch>
+    </HashRouter>
   );
+
 }
 
 export default App;
