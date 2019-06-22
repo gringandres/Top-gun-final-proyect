@@ -10,7 +10,8 @@ export default class AchievementList extends Component {
             info: [],
             error: false
         },
-        achievementeEror: false
+        achievementeEror: false,
+        searchText: ""
     }
 
 
@@ -38,21 +39,38 @@ export default class AchievementList extends Component {
             })
     }
 
+    textChange = (e, keyText) => {
+        const value = e.target.value;
+        this.setState({ [keyText]: value })
+      }
+
     render() {
         const {
+            searchText,
             achievementeEror,
             achievement: { info, error }
-            
+
         } = this.state;
 
         if (error) {
             return <div>Fetch Error: {error}</div>
         }
 
+        const filteredAchieve = info.filter(infor => infor.name.toLowerCase().includes(searchText.toLowerCase()));
+
         return (
             <>
-                {achievementeEror && <p>An error ocurred creating Character</p>}
-                {info.sort((a, b) => a.points - b.points).map(({ id, points, name }) => (
+                <div>
+                    <input
+                        onChange={(e) => this.textChange(e, "searchText")}
+                        placeholder="Search"
+                        className="filter-field"
+                        type="text"
+                        value={searchText}
+                    />
+                </div>
+                {achievementeEror && <p>An error ocurred creating Achievements</p>}
+                {filteredAchieve.sort((a, b) => a.points - b.points).map(({ id, points, name }) => (
                     <Link key={id} to={`/achievements/${id}`}>
                         <Achieve points={points} name={name} />
                     </Link>

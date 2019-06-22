@@ -7,11 +7,12 @@ import { BASE_LOCAL_ENDPOINT } from "../constants";
 
 export default class PrizesList extends Component {
     state = {
-        objects:{
-            detail:[],
+        objects: {
+            detail: [],
             error: false
         },
-        objectsError:false
+        objectsError: false,
+        searchText: ""
     }
 
     componentDidMount = () => {
@@ -38,23 +39,41 @@ export default class PrizesList extends Component {
             })
     }
 
-    render(){
+    textChange = (e, keyText) => {
+        const value = e.target.value;
+        this.setState({ [keyText]: value })
+    }
+
+
+    render() {
         const {
+            searchText,
             objectsError,
             objects: { detail, error }
-            
+
         } = this.state;
 
         if (error) {
             return <div>Fetch Error: {error}</div>
         }
 
+        const filteredPrizes = detail.filter(infor => infor.name.toLowerCase().includes(searchText.toLowerCase()));
+
         return (
             <>
-                {objectsError && <p>An error ocurred creating Character</p>}
-                {detail.sort((a, b) => a.points - b.points).map(({ id, imgSrc, name }) => (
+                <div>
+                    <input
+                        onChange={(e) => this.textChange(e, "searchText")}
+                        placeholder="Search"
+                        className="filter-field"
+                        type="text"
+                        value={searchText}
+                    />
+                </div>
+                {objectsError && <p>An error ocurred creating Prizes</p>}
+                {filteredPrizes.sort((a, b) => a.points - b.points).map(({ id, imgSrc, name, points}) => (
                     <Link key={id} to={`/prizes/${id}`}>
-                        <Prize imgSrc={imgSrc} name={name} />
+                        <Prize imgSrc={imgSrc} name={name} points={points} />
                     </Link>
                 ))}
             </>

@@ -10,7 +10,8 @@ export default class EmployeesList extends Component {
             info: [],
             error: false
         },
-        workerEror: false
+        workerEror: false,
+        searchText: ""
     }
 
 
@@ -38,8 +39,14 @@ export default class EmployeesList extends Component {
             })
     }
 
+    textChange = (e, keyText) => {
+        const value = e.target.value;
+        this.setState({ [keyText]: value })
+    }
+
     render() {
         const {
+            searchText,
             workerEror,
             workers: { info, error }
 
@@ -49,12 +56,29 @@ export default class EmployeesList extends Component {
             return <div>Fetch Error: {error}</div>
         }
 
+        const filteredWorker = info.filter(infor => infor.name.toLowerCase().includes(searchText.toLowerCase()));
+
         return (
             <>
-                {workerEror && <p>An error ocurred creating Character</p>}
-                {info.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name }) => (
+                {/* Search Box */}
+                <div>
+                    <input
+                        onChange={(e) => this.textChange(e, "searchText")}
+                        placeholder="Search"
+                        className="filter-field"
+                        type="text"
+                        value={searchText}
+                    />
+                </div>
+
+                {/* Button That Reveals Modal  */}
+                <input type="submit" value="+" />
+
+                {/* Maps With a Sort, And if it doesn't Maps it shows error */}
+                {workerEror && <p>An error ocurred creating Workers</p>}
+                {filteredWorker.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name, points }) => (
                     <Link key={id} to={`/employees/${id}`}>
-                        <Person imgSrc={imgSrc} name={name} />
+                        <Person imgSrc={imgSrc} name={name} points={points} />
                     </Link>
                 ))}
             </>

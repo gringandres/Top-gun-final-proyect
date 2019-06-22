@@ -19,7 +19,6 @@ function App() {
           exact
           path="/"
           render={() => (
-
             <Redirect to="/employees" />
           )}
         />
