@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Navbar from '../Components2/Navbar';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 
 export default class AchievementDetail extends Component {
@@ -41,7 +40,6 @@ export default class AchievementDetail extends Component {
         return (
             <div >
                 <h1>Achievement</h1>
-                <Navbar />
                 <p><b>name: </b>{name}</p>
                 <p><b>points: </b>{points}</p>
             </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
         <>
-             <ul className="navBar" id="navBar">
+            <ul className="navBar" id="navBar">
                 <li><p>TEAM Int</p></li>
                 <Link to={`/employees`}>
                     <li><p>Employees</p></li>
@@ -15,8 +15,8 @@ export default function Navbar() {
                 <Link to={`/achievements`}>
                     <li><p>Achievements</p> </li>
                 </Link>
-                <p>Profile</p>
                 <p>Log out</p>
+                <p>Profile</p>
             </ul>
         </>
     )

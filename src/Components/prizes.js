@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PrizesList from '../Container/PrizesList';
-import Navbar from '../Components2/Navbar';
 
 
 export default class prizes extends Component {
@@ -8,7 +7,6 @@ export default class prizes extends Component {
         return (
             <>
                 <h1>Prizes</h1>
-                <Navbar />
                 <div>
                     <PrizesList />
                 </div>

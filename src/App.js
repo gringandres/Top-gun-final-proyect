@@ -5,6 +5,7 @@ import achievements from './Components/achievements';
 import employeesDetail from './Container/employeesDetail';
 import prizesDetail from './Container/prizesDetail';
 import AchievementDetail from './Container/AchievementDetail';
+import Navbar from './Components2/Navbar';
 import './css/navbar.css';
 
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
@@ -12,11 +13,13 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 function App() {
   return (
     <HashRouter>
+      <Navbar />
       <Switch>
         <Route
           exact
           path="/"
           render={() => (
+
             <Redirect to="/employees" />
           )}
         />
