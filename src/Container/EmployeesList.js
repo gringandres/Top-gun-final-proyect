@@ -42,7 +42,7 @@ export default class EmployeesList extends Component {
         const {
             workerEror,
             workers: { info, error }
-            
+
         } = this.state;
 
         if (error) {
@@ -52,7 +52,7 @@ export default class EmployeesList extends Component {
         return (
             <>
                 {workerEror && <p>An error ocurred creating Character</p>}
-                {info.map(({ id, imgSrc, name }) => (
+                {info.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name }) => (
                     <Link key={id} to={`/employees/${id}`}>
                         <Person imgSrc={imgSrc} name={name} />
                     </Link>

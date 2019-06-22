@@ -52,7 +52,7 @@ export default class AchievementList extends Component {
         return (
             <>
                 {achievementeEror && <p>An error ocurred creating Character</p>}
-                {info.map(({ id, points, name }) => (
+                {info.sort((a, b) => a.points - b.points).map(({ id, points, name }) => (
                     <Link key={id} to={`/achievements/${id}`}>
                         <Achieve points={points} name={name} />
                     </Link>

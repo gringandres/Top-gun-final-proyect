@@ -52,7 +52,7 @@ export default class PrizesList extends Component {
         return (
             <>
                 {objectsError && <p>An error ocurred creating Character</p>}
-                {detail.map(({ id, imgSrc, name }) => (
+                {detail.sort((a, b) => a.points - b.points).map(({ id, imgSrc, name }) => (
                     <Link key={id} to={`/prizes/${id}`}>
                         <Prize imgSrc={imgSrc} name={name} />
                     </Link>

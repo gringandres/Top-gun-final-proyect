@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
+import Navbar from '../Components2/Navbar';
 
 export default class prizesDetail extends Component {
     constructor(props) {
@@ -43,6 +44,8 @@ export default class prizesDetail extends Component {
         } = this.state;
         return (
             <div >
+                <h1>Prize</h1>
+                <Navbar />
                 <img src={imgSrc} alt="" />
                 <p><b>name: </b>{name}</p>
                 <p><b>Description: </b>{description}</p>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Navbar from '../Components2/Navbar';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 
 export default class employeesDetail extends Component {
@@ -45,6 +46,8 @@ export default class employeesDetail extends Component {
         } = this.state;
         return (
             <div >
+                <h1>Employee</h1>
+                <Navbar />
                 <img src={imgSrc} alt="" />
                 <p><b>name: </b>{name}</p>
                 <p><b>job: </b>{job}</p>
