@@ -33,6 +33,14 @@ ul {
     background-color: gray;
   }
 
+  label{
+    display: block;
+    color: black;
+    text-align: center;
+    padding-right: 10px;
+
+  }
+
 
   /* Search */
 

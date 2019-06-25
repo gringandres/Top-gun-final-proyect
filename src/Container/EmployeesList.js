@@ -65,7 +65,7 @@ export default class EmployeesList extends Component {
         this.setState({ [keyText]: value })
     }
 
-    // Input text post 
+    // Input text for the new worker array
     inputTextChange = (value, keyText) => {
         this.setState(prevState => ({
             newWorker: {
@@ -99,6 +99,16 @@ export default class EmployeesList extends Component {
             })
             .then(() => { this.getWorker() })
             .catch(() => { this.setState({ workerEror: true }) })
+
+        this.setState(() => ({   //This sets the fields empty
+            newWorker : {        // the new array, Dont haco to concat because we are posting it
+                name: "",
+                job: "",
+                area: "",
+                points: 0,
+                imgSrc: ""
+            }
+        }))
     }
 
     render() {
