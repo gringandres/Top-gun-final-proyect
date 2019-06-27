@@ -4,7 +4,7 @@ import prizes from './Components/prizes';
 import achievements from './Components/achievements';
 import employeesDetail from './Container/employeesDetail';
 import prizesDetail from './Container/prizesDetail';
-import AchievementDetail from './Container/AchievementDetail';
+import NotFound from './Components/NotFound';
 import Navbar from './Components2/Navbar';
 import './css/navbar.css';
 
@@ -27,8 +27,7 @@ function App() {
         <Route exact path="/prizes" component={prizes} />
         <Route exact path="/prizes/:id" component={prizesDetail} />
         <Route exact path="/achievements" component={achievements} />
-        <Route exact path="/achievements/:id" component={AchievementDetail} />
-
+        <Route component={NotFound} />
       </Switch>
     </HashRouter>
   );

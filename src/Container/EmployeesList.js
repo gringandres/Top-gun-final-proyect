@@ -10,7 +10,7 @@ export default class EmployeesList extends Component {
     // Constructer with props
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this);   //ReactStrap
         this.state = {
             workers: {
                 info: [],
@@ -65,16 +65,6 @@ export default class EmployeesList extends Component {
         this.setState({ [keyText]: value })
     }
 
-    // Input text for the new worker array
-    inputTextChange = (value, keyText) => {
-        this.setState(prevState => ({
-            newWorker: {
-                ...prevState.newWorker,
-                [keyText]: value
-            }
-        }))
-    }
-
     // Posts in the dataBase with Axios
     createWorker = (e) => {
         e.preventDefault();
@@ -101,7 +91,7 @@ export default class EmployeesList extends Component {
             .catch(() => { this.setState({ workerEror: true }) })
 
         this.setState(() => ({   //This sets the fields empty
-            newWorker : {        // the new array, Dont haco to concat because we are posting it
+            newWorker: {        // the new array, Dont haco to concat because we are posting it
                 name: "",
                 job: "",
                 area: "",
@@ -110,6 +100,27 @@ export default class EmployeesList extends Component {
             }
         }))
     }
+
+    // Input text for the new worker array
+    inputTextChange = (value, keyText) => {
+        this.setState(prevState => ({
+            newWorker: {
+                ...prevState.newWorker,
+                [keyText]: value
+            }
+        }))
+    }
+
+    //The input
+    inputField = (value, field, field2) => (
+        <input
+            type="text"
+            placeholder={field2}
+            onChange={(e) => this.inputTextChange(e.target.value, field)}
+            value={value}
+            required
+        />
+    )
 
     render() {
 
@@ -156,36 +167,11 @@ export default class EmployeesList extends Component {
                         <Card>
                             <CardBody>
                                 <form className="" onSubmit={(e) => this.createWorker(e)}>
-                                    <input
-                                        type="text"
-                                        placeholder="Full name"
-                                        onChange={(e) => this.inputTextChange(e.target.value, "name")}
-                                        value={name}
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Job"
-                                        onChange={(e) => this.inputTextChange(e.target.value, "job")}
-                                        value={job}
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Area"
-                                        onChange={(e) => this.inputTextChange(e.target.value, "area")}
-                                        value={area}
-                                    />
-                                    <input
-                                        type="number"
-                                        placeholder="Points"
-                                        onChange={(e) => this.inputTextChange(e.target.value, "points")}
-                                        value={points}
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Image"
-                                        onChange={(e) => this.inputTextChange(e.target.value, "imgSrc")}
-                                        value={imgSrc}
-                                    />
+                                    {this.inputField(name, 'name', 'Full Name')}
+                                    {this.inputField(job, 'job', 'Job')}
+                                    {this.inputField(area, 'area', 'Area')}
+                                    {this.inputField(points, 'points', 'Points')}
+                                    {this.inputField(imgSrc, 'ImgSrc', 'Imagen')}
                                     <button type="submit" className="">Accept</button>
                                 </form>
                             </CardBody>

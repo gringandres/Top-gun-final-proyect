@@ -17,17 +17,16 @@ export default class employeesDetail extends Component {
                 points: 0,
                 redirect: false  //States false the Redirect in render
             },
-            updateEmployee: {
-                imgSrc2: "",
-                name2: "",
-                job2: "",
-                area2: "",
-                points2: 0,
-            },
+            imgSrc2: "",
+            name2: "",
+            job2: "",
+            area2: "",
+            points2: 0,
             error: "",
             look: "hidden",
             lookButton: "button",
-            lookAccept: "hidden"
+            lookAccept: "hidden",
+            workerEror: false
         };
     }
 
@@ -56,23 +55,13 @@ export default class employeesDetail extends Component {
     editWorker = (e) => {
         e.preventDefault();
         const {
-            updateEmployee: {
-                imgSrc2,
-                name2,
-                job2,
-                area2,
-                points2,
-            }
-        } = this.state;
+            imgSrc2,
+            name2,
+            job2,
+            area2,
+            points2
 
-        // let imgSrc3=imgSrc2;
-        // let name3=name2;
-        // if (imgSrc2 === undefined){
-        //     imgSrc3= this.state.employees.imgSrc
-        // } 
-        // if (name2 === undefined){
-        //     name3= this.state.employees.name
-        // }
+        } = this.state;
 
         const { match: { params: { id } } } = this.props;    //gets the id from the props
         axios.put(`${BASE_LOCAL_ENDPOINT}/employees/${id}`, {
@@ -87,21 +76,11 @@ export default class employeesDetail extends Component {
             .then(() => { this.getEmployee() })
             .catch(() => { this.setState({ error: true }) })
 
-        this.setState(() => ({   //This sets the fields empty
-            updateEmployee: {        // the new array, Dont have to concat because we are posting it
-                name: "",
-                job: "",
-                area: "",
-                points: 0,
-                imgSrc: ""
-            }
-        }))
         this.setState({
             look: "hidden",
             lookButton: "button",
             lookAccept: "hidden"
         })
-
     }
 
     //Deleate worker form db
@@ -138,15 +117,30 @@ export default class employeesDetail extends Component {
         }
     }
 
-    // Input text for the update worker array
-    inputTextChange = (value, keyText) => {
-        this.setState(prevState => ({
-            updateEmployee: {
-                ...prevState.updateEmployee,
-                [keyText]: value
-            }
-        }))
+    // Input text for the update worker 
+    inputTextChange = (e, keyText) => {
+        const value = e.target.value;
+        this.setState({ [keyText]: value })
     }
+
+    //Label 
+    labelField = (label, value , look) => (
+        <label type={look}>
+            <b>{label}</b>{value}
+        </label>
+    )
+
+    //input
+    inputField = (value, field, field2, look) => (
+        <input
+            type={look}        /* Send the property (hidden o text) */
+            onChange={(e) => this.inputTextChange(e, field2)}
+            name="name"
+            value={value}
+            placeholder={field}
+            required
+        />
+    )
 
     render() {
 
@@ -160,79 +154,49 @@ export default class employeesDetail extends Component {
                 points,
                 redirect
             },
-            updateEmployee: {
-                imgSrc2,
-                name2,
-                job2,
-                area2,
-                points2,
-            },
             look,
             lookButton,
             lookAccept
         } = this.state;
 
-        // Redirect so it doesn't print and leaves to employees
-        if (redirect) {
-            return <Redirect to='/employees' />
-        } else {
-            return (
-                // Prints the employee that has been selected
-                <div>
-                    <form>
-                        <div className="field-group">
-                            <h1>Employee</h1>
-                            <img src={imgSrc} alt="" />
-                            <input
-                                type={look}        /* Send the property (hidden o text) */
-                                onChange={(e) => this.inputTextChange(e.target.value, "imgSrc2")}
-                                value={imgSrc2}
-                            ></input>
-                            <label>
-                                <b>Name: </b>{name}
-                                <input
-                                    type={look}        /* Send the property (hidden o text) */
-                                    onChange={(e) => this.inputTextChange(e.target.value, "name2")}
-                                    value={name2}
-                                >
-                                </input>
-                            </label>
-                            <label>
-                                <b>Job: </b>{job}
-                                <input
-                                    type={look}        /* Send the property (hidden o text) */
-                                    onChange={(e) => this.inputTextChange(e.target.value, "job2")}
-                                    value={job2}
-                                >
-                                </input>
-                            </label>
-                            <label>
-                                <b>Area: </b>{area}
-                                <input
-                                    type={look}        /* Send the property (hidden o text) */
-                                    onChange={(e) => this.inputTextChange(e.target.value, "area2")}
-                                    value={area2}
-                                >
-                                </input>
-                            </label>
-                            <label>
-                                <b>Points: </b>{points}
-                                <input
-                                    type={look}        /* Send the property (hidden o text) */
-                                    onChange={(e) => this.inputTextChange(e.target.value, "points2")}
-                                    value={points2}
-                                >
-                                </input>
-                            </label>
-                            <button onClick={(e) => this.deleateWorker(e)}>Delete</button>
-                            <input type={lookButton} value="Edit" onClick={(e) => this.change(e)}></input>
-                            <input type={lookAccept} value="Accept!" onClick={(e) => this.editWorker(e)}></input>
-                        </div>
-                    </form>
-                </div>
+        //Destructuring with a object
+        const {
+            imgSrc2,
+            name2,
+            job2,
+            area2,
+            points2
+        } = this.state.employees
 
-            );
-        }
+        return (
+            // Prints the employee that has been selected
+            <div>
+                {/* // Redirect so it doesn't print and leaves to employees */}
+                {redirect && <Redirect to='/employees' />}
+                <form className="field-group">
+                    <h1>Employee</h1>
+                    <img src={imgSrc} alt="" />
+                    {this.inputField(imgSrc2, imgSrc, "imgSrc2", look)}
+            
+                    {this.labelField("Name: ", name)}
+                    {this.inputField(name2, name, "name2", look)}
 
+                    {this.labelField("Job: ", job)}
+                    {this.inputField(job2, job, "job2", look)}
+                   
+                    {this.labelField("Area: ", area)}
+                    {this.inputField(area2, area, "area2", look)}
+
+                    {this.labelField("Points: ", points)}
+                    {this.inputField(points2, points, "points2", look)}
+
+                    <button onClick={(e) => this.deleateWorker(e)}>Delete</button>
+                    <input type={lookButton} value="Edit" onClick={(e) => this.change(e)}></input>
+                    <input type={lookAccept} value="Accept!" onClick={(e) => this.editWorker(e)}></input>
+                </form>
+            </div>
+
+        );
     }
+
 }

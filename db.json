@@ -65,14 +65,6 @@
       "points": 4
     },
     {
-      "id": 9,
-      "name": "veera huhta",
-      "job": "Bussiness Representative",
-      "area": "Sales",
-      "imgSrc": "https://randomuser.me/api/portraits/women/79.jpg",
-      "points": 8
-    },
-    {
       "id": 10,
       "name": "Adrian Serna",
       "job": "Recruiter",
@@ -121,9 +113,11 @@
       "points": 1
     },
     {
-      "imgSrc": "",
-      "name": "Luffy",
-      "job": "dsd",
+      "imgSrc": "https://pbs.twimg.com/profile_images/1035659935189753857/naIx_NGe_200x200.jpg",
+      "name": "Zoro",
+      "job": "Pirate",
+      "area": "Captain",
+      "points": "10",
       "id": 16
     }
   ],
