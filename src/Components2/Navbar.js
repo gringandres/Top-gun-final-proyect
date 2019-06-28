@@ -1,23 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const NavBarAll = styled.ul`
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    height: 80px;
+`;
+
+const ListItemsNavBar = styled.li`
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+    :hover {
+        -webkit-text-fill-color: green;
+    }
+`;
+
+const RightItemNavBar = styled(ListItemsNavBar)`
+    float: right;
+`;
 
 export default function Navbar() {
     return (
         <>
-            <ul className="navBar" id="navBar">
-                <li><p>TEAM Int</p></li>
+            <NavBarAll className="navBar" id="navBar">
+                <ListItemsNavBar><p>TEAM Int</p></ListItemsNavBar>
                 <Link to={`/employees`}>
-                    <li><p>Employees</p></li>
+                    <ListItemsNavBar><p>Employees</p></ListItemsNavBar>
                 </Link>
                 <Link to={`/prizes`}>
-                    <li><p>Prizes</p> </li>
+                    <ListItemsNavBar><p>Prizes</p> </ListItemsNavBar>
                 </Link>
                 <Link to={`/achievements`}>
-                    <li><p>Achievements</p> </li>
+                    <ListItemsNavBar><p>Achievements</p> </ListItemsNavBar>
                 </Link>
-                <p>Log out</p>
-                <p>Profile</p>
-            </ul>
+                <RightItemNavBar><p>Log out</p></RightItemNavBar>
+                <RightItemNavBar><p>Profile</p></RightItemNavBar>
+            </NavBarAll>
         </>
     )
 }

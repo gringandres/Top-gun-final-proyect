@@ -1,10 +1,39 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Prize from '../Components2/Prize';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, CardBody, Card } from 'reactstrap';
 
+const PrizesGrid = styled.div`
+    margin-top: 10px;
+    display: grid;
+    justify-content: center;
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fill, 200px);
+`;
+
+const Search = styled.input`
+    margin: 0 0 20px 0;
+    text-align: center;
+`;
+
+const SearchDiv = styled.div`
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+const ButtonAgg = styled.button`
+    display: block;
+    float: right;
+    height: 30px;
+`;
+const CollapseFlex = styled(SearchDiv)`
+    margin-top: 0px;
+`;
 
 export default class PrizesList extends Component {
     constructor(props) {
@@ -138,37 +167,40 @@ export default class PrizesList extends Component {
 
         return (
             <>
-                <div>
-                    <input
+                <SearchDiv>
+                    <Search
                         onChange={(e) => this.textChange(e, "searchText")}
                         placeholder="Search"
                         className="filter-field"
                         type="text"
                         value={searchText}
                     />
-                </div>
-                <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>+</Button>
-                <Collapse isOpen={this.state.collapse}>
-                    <Card>
-                        <CardBody>
-                            <form className="" onSubmit={(e) => this.createObject(e)}>
-                                {this.inputField(name, 'name', 'Full Name')}
-                                {this.inputField(points, 'points', 'Points')}
-                                {this.inputField(imgSrc, 'imgSrc', 'Imagen')}
-                                {this.inputField(description, 'description', 'Description')}
-                                <button type="submit" className="">Accept</button>
-                            </form>
-                        </CardBody>
-                    </Card>
-                </Collapse>
-
+                    <ButtonAgg color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>+</ButtonAgg>
+                </SearchDiv>
+                <CollapseFlex>
+                    <Collapse isOpen={this.state.collapse}>
+                        <Card>
+                            <CardBody>
+                                <form className="" onSubmit={(e) => this.createObject(e)}>
+                                    {this.inputField(name, 'name', 'Full Name')}
+                                    {this.inputField(points, 'points', 'Points')}
+                                    {this.inputField(imgSrc, 'imgSrc', 'Imagen')}
+                                    {this.inputField(description, 'description', 'Description')}
+                                    <button type="submit" className="">Accept</button>
+                                </form>
+                            </CardBody>
+                        </Card>
+                    </Collapse>
+                </CollapseFlex>
                 {/* Maps With a Sort, And if it doesn't Maps it shows error */}
                 {objectsError && <p>An error ocurred creating Prizes</p>}
+                <PrizesGrid>
                 {filteredPrizes.sort((a, b) => a.points - b.points).map(({ id, imgSrc, name, points }) => (
                     <Link key={id} to={`/prizes/${id}`}>
                         <Prize imgSrc={imgSrc} name={name} points={points} />
                     </Link>
                 ))}
+                </PrizesGrid>
             </>
         );
     }

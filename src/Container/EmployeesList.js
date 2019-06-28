@@ -1,9 +1,40 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Person from '../Components2/Person';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, CardBody, Card } from 'reactstrap';
+
+
+const EmployeesGrid = styled.div`
+    margin-top: 10px;
+    display: grid;
+    justify-content: center;
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fill, 200px);
+`;
+
+const Search = styled.input`
+    margin: 0 0 20px 0;
+    text-align: center;
+`;
+
+const SearchDiv = styled.div`
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+const ButtonAgg = styled.button`
+    display: block;
+    float: right;
+    height: 30px;
+`;
+const CollapseFlex = styled(SearchDiv)`
+    margin-top: 0px;
+`;
 
 export default class EmployeesList extends Component {
 
@@ -49,6 +80,7 @@ export default class EmployeesList extends Component {
                     },
                     workerEror: false
                 })
+                console.log(this.state.workers);
             })
             .catch(error => {
                 this.setState({
@@ -150,19 +182,18 @@ export default class EmployeesList extends Component {
         return (
             <>
                 {/* Search Box */}
-                <div>
-                    <input
+                <SearchDiv>
+                    <Search
                         onChange={(e) => this.textChange(e, "searchText")}
                         placeholder="Search"
                         className="filter-field"
                         type="text"
                         value={searchText}
                     />
-                </div>
-
-                {/* Button That Reveals Modal ReacStrap: Colapse*/}
-                <div>
-                    <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>+</Button>
+                    {/* Button That Reveals Modal ReacStrap: Colapse*/}
+                    <ButtonAgg onClick={this.toggle}>+</ ButtonAgg>
+                </SearchDiv>
+                <CollapseFlex>
                     <Collapse isOpen={this.state.collapse}>
                         <Card>
                             <CardBody>
@@ -171,21 +202,23 @@ export default class EmployeesList extends Component {
                                     {this.inputField(job, 'job', 'Job')}
                                     {this.inputField(area, 'area', 'Area')}
                                     {this.inputField(points, 'points', 'Points')}
-                                    {this.inputField(imgSrc, 'ImgSrc', 'Imagen')}
+                                    {this.inputField(imgSrc, 'imgSrc', 'Imagen')}
                                     <button type="submit" className="">Accept</button>
                                 </form>
                             </CardBody>
                         </Card>
                     </Collapse>
-                </div>
+                </CollapseFlex>
 
                 {/* Maps With a Sort, And if it doesn't Maps it shows error */}
                 {workerEror && <p>An error ocurred Creating or Loading Employees</p>}
-                {filteredWorker.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name, points }) => (
-                    <Link key={id} to={`/employees/${id}`}>
-                        <Person imgSrc={imgSrc} name={name} points={points} />
-                    </Link>
-                ))}
+                <EmployeesGrid>
+                    {filteredWorker.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name, points }) => (
+                        <Link key={id} to={`/employees/${id}`}>
+                            <Person imgSrc={imgSrc} name={name} points={points} />
+                        </Link>
+                    ))}
+                </EmployeesGrid>
             </>
         );
     }
