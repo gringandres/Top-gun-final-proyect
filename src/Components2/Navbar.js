@@ -107,6 +107,7 @@ const List = styled.a`
         padding: 20px;
     }
 `;
+
 const CloseNav = styled.i`
     :hover {
         color: #62E52C;
