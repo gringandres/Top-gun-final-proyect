@@ -82,6 +82,23 @@ const ButtonDel = styled.button`
     border-radius: 20px;
 `;
 
+const InputEdi = styled.input`
+    color: #253746;
+    text-align: center;
+    border: 2px solid #253746;
+    transition: 0.6s;
+    margin-right:2px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    &::placeholder{
+        color: #62E52C;
+        text-transform:capitalize;
+
+    }
+    &:active, &:focus{
+        border: 2px solid #62E52C;
+    }
+`;
+
 export default class prizesDetail extends Component {
     constructor(props) {
         super(props);
@@ -205,7 +222,7 @@ export default class prizesDetail extends Component {
 
     //input
     inputField = (value, field, field2, look) => (
-        <input
+        <InputEdi
             type={look}        /* Send the property (hidden o text) */
             onChange={(e) => this.inputTextChange(e, field2)}
             name="name"

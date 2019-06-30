@@ -135,12 +135,22 @@ const ButtonAgg = styled.button`
 
 `;
 
-const ButtonAccept = styled.button`
+const ButtonAccept = styled.div`
     padding-left:2px;
     padding-right:2px;
+    border-radius: 10px;
+    margin-bottom:10px;
+    margin: 0px;
     color: #62E52C;
     background: #253746;
-    border: 2px solid #253746;
+    border: 2px solid #62E52C;
+    transition: 0.6s;
+    margin-left:5px;
+    margin-right: 0;
+    &:hover{
+        border: 2px solid #F67B27;
+    }
+
 `;
 
 const CollapseFlex = styled.div`
@@ -160,7 +170,8 @@ const AggInput = styled.input`
     margin-right:2px;
     font-family:Georgia, 'Times New Roman', Times, serif;
     &::placeholder{
-        color: #62E52C;
+        color: #253746;
+
     }
     &:active, &:focus{
         border: 2px solid #62E52C;
@@ -168,8 +179,9 @@ const AggInput = styled.input`
 `;
 
 const CardBodys = styled(CardBody)`
-    border: 2px solid #253746;
+    border: 2px solid #62E52C;
     border-radius: 10px;
+    background: #253746;
 `;
 
 
