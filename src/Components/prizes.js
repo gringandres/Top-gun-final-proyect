@@ -3,8 +3,13 @@ import PrizesList from '../Container/PrizesList';
 import styled from 'styled-components';
 
 const Title = styled.h1`
-    text-align:center;
-    margin-top:10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 46%;
+    margin-top: 20px;
+    font-weight: bold;
+    font-family:"Times New Roman", Times, serif;
+    color: #62E52C;
 `;
 
 export default class prizes extends Component {

@@ -5,36 +5,174 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 import { Collapse, CardBody, Card } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
+// Font Awesome
+const element = <FontAwesomeIcon icon={faSearch} />
 
+//Grid
 const EmployeesGrid = styled.div`
-    margin-top: 10px;
+    margin-top: 30px;
     display: grid;
     justify-content: center;
-    grid-gap: 40px;
+    grid-gap: 30px;
     grid-template-columns: repeat(auto-fill, 200px);
 `;
 
-const Search = styled.input`
-    margin: 0 0 20px 0;
-    text-align: center;
+//remove Blue line of Link
+const StyledLink = styled(Link)`
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
 `;
 
+//Search
+const Search = styled.input`
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    transition: 0.4s;
+    width: 0px;
+    
+`;
+
+const SearchBtn = styled.a`
+    color: #62E52C;
+    float: right;
+    border-radius: 50%;
+    background: #253746;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    transition: 0.4s;
+`;
+
+const SeacrLabel = styled.div`
+    position: absolute;
+    top:27%;
+    left: 61%;
+    font-size: 16px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: #253746;
+    color: #62E52C;
+    border: 10px solid  #253746;
+    border-radius: 50px;
+    
+`;
+
+
 const SearchDiv = styled.div`
-    margin-top: 20px;
+    position: absolute;
+    left: 84%;
+    top: 30%;
+    transform: translate(-50%,-50%);
+    background: #253746;
+    height: 50px;
+    border-radius: 40px;
+    padding: 10px; 
+    :hover > ${Search}{
+        width: 150px;
+        padding: 0 6px;
+    }
+    :hover > ${SearchBtn}{
+        background: black;
+        width: 30px;
+    }
+`;
+
+//Agg
+
+const ButtonAgg = styled.button`
+    position: absolute;
+    top: 28%;
+    left: 9%;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-family: "montserrat";
+    border: 1px solid #62E52C;
+    cursor: pointer;
+    color:transparent;
+    transition: 0.8s;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+
+    &:hover{
+        background: #62E52C;
+        border: 1px solid #253746;
+        
+    }
+
+    &::before {
+        content:"Hi, Add";
+        font-display:left;
+        color: #62E52C;
+        font-size: 25px;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 180%;
+        background: #253746;
+        transition:0.8s;
+        top: 0;
+        border-radius: 0 0 50% 50%;
+    }
+
+    &:hover::before{
+        color: #253746;
+        height: 0%;
+        border-radius: 0 0 50% 50%;
+    }
+
+`;
+
+const ButtonAccept = styled.button`
+    padding-left:2px;
+    padding-right:2px;
+    color: #62E52C;
+    background: #253746;
+    border: 2px solid #253746;
+`;
+
+const CollapseFlex = styled.div`
+    margin-top: 70px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 10px 20px;
+    font-size: 15px;
 `;
 
-const ButtonAgg = styled.button`
-    display: block;
-    float: right;
-    height: 30px;
+const AggInput = styled.input`
+    color: #253746;
+    text-align: center;
+    border: 2px solid #253746;
+    transition: 0.6s;
+    margin-right:2px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    &::placeholder{
+        color: #62E52C;
+    }
+    &:active, &:focus{
+        border: 2px solid #62E52C;
+    }
 `;
-const CollapseFlex = styled(SearchDiv)`
-    margin-top: 0px;
+
+const CardBodys = styled(CardBody)`
+    border: 2px solid #253746;
+    border-radius: 10px;
 `;
+
+
 
 export default class EmployeesList extends Component {
 
@@ -107,7 +245,8 @@ export default class EmployeesList extends Component {
                 area,
                 points,
                 imgSrc,
-            }
+            },
+            collapse
         } = this.state;
 
         axios.post(`${BASE_LOCAL_ENDPOINT}/employees`, {
@@ -129,7 +268,8 @@ export default class EmployeesList extends Component {
                 area: "",
                 points: 0,
                 imgSrc: ""
-            }
+            },
+            collapse: false
         }))
     }
 
@@ -145,7 +285,7 @@ export default class EmployeesList extends Component {
 
     //The input
     inputField = (value, field, field2) => (
-        <input
+        <AggInput
             type="text"
             placeholder={field2}
             onChange={(e) => this.inputTextChange(e.target.value, field)}
@@ -182,6 +322,7 @@ export default class EmployeesList extends Component {
         return (
             <>
                 {/* Search Box */}
+                <SeacrLabel>Looking For Someone?</SeacrLabel>
                 <SearchDiv>
                     <Search
                         onChange={(e) => this.textChange(e, "searchText")}
@@ -190,22 +331,25 @@ export default class EmployeesList extends Component {
                         type="text"
                         value={searchText}
                     />
+                    <SearchBtn href="#">
+                        {element}
+                    </SearchBtn>
                     {/* Button That Reveals Modal ReacStrap: Colapse*/}
-                    <ButtonAgg onClick={this.toggle}>+</ ButtonAgg>
                 </SearchDiv>
+                <ButtonAgg onClick={this.toggle}>¡.........................!</ ButtonAgg>
                 <CollapseFlex>
                     <Collapse isOpen={this.state.collapse}>
                         <Card>
-                            <CardBody>
+                            <CardBodys>
                                 <form className="" onSubmit={(e) => this.createWorker(e)}>
                                     {this.inputField(name, 'name', 'Full Name')}
                                     {this.inputField(job, 'job', 'Job')}
                                     {this.inputField(area, 'area', 'Area')}
                                     {this.inputField(points, 'points', 'Points')}
                                     {this.inputField(imgSrc, 'imgSrc', 'Imagen')}
-                                    <button type="submit" className="">Accept</button>
+                                    <ButtonAccept type="submit" className="">Accept</ButtonAccept>
                                 </form>
-                            </CardBody>
+                            </CardBodys>
                         </Card>
                     </Collapse>
                 </CollapseFlex>
@@ -214,9 +358,9 @@ export default class EmployeesList extends Component {
                 {workerEror && <p>An error ocurred Creating or Loading Employees</p>}
                 <EmployeesGrid>
                     {filteredWorker.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name, points }) => (
-                        <Link key={id} to={`/employees/${id}`}>
+                        <StyledLink key={id} to={`/employees/${id}`}>
                             <Person imgSrc={imgSrc} name={name} points={points} />
-                        </Link>
+                        </StyledLink>
                     ))}
                 </EmployeesGrid>
             </>

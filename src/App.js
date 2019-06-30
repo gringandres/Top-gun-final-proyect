@@ -6,7 +6,6 @@ import employeesDetail from './Container/employeesDetail';
 import prizesDetail from './Container/prizesDetail';
 import NotFound from './Components/NotFound';
 import Navbar from './Components2/Navbar';
-import './css/navbar.css';
 
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 

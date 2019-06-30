@@ -1,7 +1,103 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import styled from 'styled-components';
+import Prize from '../Components2/Prize';
+import { Link } from 'react-router-dom';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
 import { Redirect } from "react-router-dom";
+
+const AllPage = styled.div`
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+`;
+
+//Employee Card Info
+const CardForm = styled.form`
+    box-shadow: 0 4px 8px 0 rgba(98,229,44,1);
+    transition: 0.3s;
+    border: 2px solid #253746;
+    border-radius: 50px;
+    width: 30%;
+    align-self: center;
+    &:hover{
+        box-shadow: 0 8px 16px 0 rgba(98,229,44,5);
+    }
+`;
+
+const Img = styled.img`
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    width: 200px;
+    height: 200px;
+    border: 2px solid;
+    border-radius: 10px;
+    &:hover{    
+    border: 3px solid #62E52C;
+    }
+`;
+
+const TitleStyle = styled.h1`
+    text-align: center;
+    color: #62E52C;
+    margin-bottom: 20px;
+`;
+
+const Container = styled.div`
+    padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: none;
+    margin-bottom: 20px;
+`;
+
+const LabelStyle = styled.label`
+    display: block;
+    color: #253746;
+    text-align: center;
+    padding-right: 10px;
+    text-transform: capitalize;
+`;
+
+const InputButton = styled.input`
+    margin-top: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    color: #62E52C;
+    background: #253746;
+    border: 2px solid #253746;
+    border-radius: 20px;
+`;
+
+const ButtonDel = styled.button`
+    margin-top: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    color: #62E52C;
+    background: #253746;
+    border: 2px solid #253746;
+    border-radius: 20px;
+`;
+
+//Prize Part
+
+const Seperator = styled.div`
+    margin-top: 30px;
+    border-top: 3px dotted #253746;
+`;
+
+const PrizesGrid = styled.div`
+    margin-top: 30px;
+    display: grid;
+    justify-content: center;
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fill, 200px);
+`;
+
 
 export default class employeesDetail extends Component {
 
@@ -17,6 +113,10 @@ export default class employeesDetail extends Component {
                 points: 0,
                 redirect: false  //States false the Redirect in render
             },
+            objects: {
+                detail: [],
+                error: false
+            },
             imgSrc2: "",
             name2: "",
             job2: "",
@@ -26,13 +126,15 @@ export default class employeesDetail extends Component {
             look: "hidden",
             lookButton: "button",
             lookAccept: "hidden",
-            workerEror: false
+            workerEror: false,
+            objectsError: false
         };
     }
 
     //gets The worker with the id that was clicked from the db
     componentDidMount = () => {
         this.getEmployee();
+        this.getPrize();
     }
 
     getEmployee = () => {
@@ -47,6 +149,27 @@ export default class employeesDetail extends Component {
             .catch(error => {
                 this.setState({
                     error: error.message
+                })
+            })
+    }
+
+
+    getPrize = () => {
+        axios.get(`${BASE_LOCAL_ENDPOINT}/prizes`)
+            .then(response => {
+                this.setState({
+                    objects: {
+                        detail: response.data,
+                        error: ''
+                    },
+                    objectsError: false
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    objects: {
+                        error: error.message
+                    }
                 })
             })
     }
@@ -124,10 +247,10 @@ export default class employeesDetail extends Component {
     }
 
     //Label 
-    labelField = (label, value , look) => (
-        <label type={look}>
+    labelField = (label, value, look) => (
+        <LabelStyle type={look}>
             <b>{label}</b>{value}
-        </label>
+        </LabelStyle>
     )
 
     //input
@@ -154,6 +277,7 @@ export default class employeesDetail extends Component {
                 points,
                 redirect
             },
+            objects: { detail },
             look,
             lookButton,
             lookAccept
@@ -168,33 +292,46 @@ export default class employeesDetail extends Component {
             points2
         } = this.state.employees
 
+        const filteredPrize = detail.filter(details => details.points <= this.state.employees.points);
+
         return (
             // Prints the employee that has been selected
-            <div>
+            <AllPage>
                 {/* // Redirect so it doesn't print and leaves to employees */}
                 {redirect && <Redirect to='/employees' />}
-                <form className="field-group">
-                    <h1>Employee</h1>
-                    <img src={imgSrc} alt="" />
-                    {this.inputField(imgSrc2, imgSrc, "imgSrc2", look)}
-            
-                    {this.labelField("Name: ", name)}
-                    {this.inputField(name2, name, "name2", look)}
+                <TitleStyle>Employee</TitleStyle>
+                <CardForm className="field-group">
+                    <Img src={imgSrc} alt="" />
+                    <Container>
+                        {this.inputField(imgSrc2, imgSrc, "imgSrc2", look)}
 
-                    {this.labelField("Job: ", job)}
-                    {this.inputField(job2, job, "job2", look)}
-                   
-                    {this.labelField("Area: ", area)}
-                    {this.inputField(area2, area, "area2", look)}
+                        {this.labelField("Name: ", name)}
+                        {this.inputField(name2, name, "name2", look)}
 
-                    {this.labelField("Points: ", points)}
-                    {this.inputField(points2, points, "points2", look)}
+                        {this.labelField("Job: ", job)}
+                        {this.inputField(job2, job, "job2", look)}
 
-                    <button onClick={(e) => this.deleateWorker(e)}>Delete</button>
-                    <input type={lookButton} value="Edit" onClick={(e) => this.change(e)}></input>
-                    <input type={lookAccept} value="Accept!" onClick={(e) => this.editWorker(e)}></input>
-                </form>
-            </div>
+                        {this.labelField("Area: ", area)}
+                        {this.inputField(area2, area, "area2", look)}
+
+                        {this.labelField("Points: ", points)}
+                        {this.inputField(points2, points, "points2", look)}
+
+                        <ButtonDel onClick={(e) => this.deleateWorker(e)}>Delete</ButtonDel>
+                        <InputButton type={lookButton} value="Edit" onClick={(e) => this.change(e)}></InputButton>
+                        <InputButton type={lookAccept} value="Accept!" onClick={(e) => this.editWorker(e)}></InputButton>
+                    </Container>
+                </CardForm>
+                <Seperator>
+                    <PrizesGrid>
+                        {filteredPrize.sort((a, b) => b.points - a.points).map(({ id, imgSrc, name, points }) => (
+                            <Link key={id} to={`/prizes/${id}`}>
+                                <Prize imgSrc={imgSrc} name={name} points={points} />
+                            </Link>
+                        ))}
+                    </PrizesGrid>
+                </Seperator>
+            </AllPage>
 
         );
     }

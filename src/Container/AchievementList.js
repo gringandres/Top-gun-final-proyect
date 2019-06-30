@@ -1,8 +1,196 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Achieve from '../Components2/Achieve';
+import styled from 'styled-components';
 import { BASE_LOCAL_ENDPOINT } from "../constants";
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, CardBody, Card } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+// Font Awesome
+const element = <FontAwesomeIcon icon={faSearch} />
+
+//Flex
+const AchieveFlex = styled.div`
+    padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: none;
+    margin: 20px 15% 20px 30%;
+    border: 2px solid #253746;
+    box-shadow: 0 4px 8px 0 rgba(98,229,44,1);
+    width: 40%;
+    border-radius: 30px;
+    background-color: #253746;
+    &:hover{
+        box-shadow: 0 8px 16px 0 rgba(98,229,44,5);
+    }
+`;
+
+
+//Search
+const Search = styled.input`
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    transition: 0.4s;
+    width: 0px;
+    
+`;
+
+const SearchBtn = styled.a`
+    color: #62E52C;
+    float: right;
+    border-radius: 50%;
+    background: #253746;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    transition: 0.4s;
+`;
+
+const SeacrLabel = styled.div`
+    position: absolute;
+    top:27%;
+    left: 61%;
+    font-size: 16px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: #253746;
+    color: #62E52C;
+    border: 10px solid  #253746;
+    border-radius: 50px;
+    
+`;
+
+
+const SearchDiv = styled.div`
+    position: absolute;
+    left: 84%;
+    top: 30%;
+    transform: translate(-50%,-50%);
+    background: #253746;
+    height: 50px;
+    border-radius: 40px;
+    padding: 10px; 
+    :hover > ${Search}{
+        width: 150px;
+        padding: 0 6px;
+    }
+    :hover > ${SearchBtn}{
+        background: black;
+        width: 30px;
+    }
+`;
+
+//Agg
+
+const ButtonAgg = styled.button`
+    position: absolute;
+    top: 28%;
+    left: 9%;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-family: "montserrat";
+    border: 1px solid #62E52C;
+    cursor: pointer;
+    color:transparent;
+    transition: 0.8s;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+
+    &:hover{
+        background: #62E52C;
+        border: 1px solid #253746;
+        
+    }
+
+    &::before {
+        content:"Hi, Add";
+        font-display:left;
+        color: #62E52C;
+        font-size: 25px;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 180%;
+        background: #253746;
+        transition:0.8s;
+        top: 0;
+        border-radius: 0 0 50% 50%;
+    }
+
+    &:hover::before{
+        color: #253746;
+        height: 0%;
+        border-radius: 0 0 50% 50%;
+    }
+
+`;
+
+const ButtonDel = styled.button`
+    padding-left:2px;
+    padding-right:2px;
+    color: #253746;
+    background: #62E52C;
+    border: 2px solid #F67B27;
+    border-radius: 10px;
+    margin-bottom:10px;
+    margin-left: 40%;
+    margin-right: 40%;
+`;
+
+const ButtonAc = styled(ButtonDel)`
+    margin: 0px;
+    color: #62E52C;
+    background: #253746;
+    border: 2px solid #62E52C;
+    transition: 0.6s;
+    margin-left:5px;
+    margin-right: 0;
+    &:hover{
+        border: 2px solid #F67B27;
+    }
+
+`;
+
+const CollapseFlex = styled.div`
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 15px;
+`;
+
+const AggInput = styled.input`
+    color: #253746;
+    text-align: center;
+    border: 2px solid #253746;
+    transition: 0.6s;
+    margin-right:2px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    &::placeholder{
+        color: #253746;
+
+    }
+    &:active, &:focus{
+        border: 2px solid #62E52C;
+    }
+`;
+
+const CardBodys = styled(CardBody)`
+    border: 2px solid #62E52C;
+    border-radius: 10px;
+    background: #253746;
+`;
+
 
 export default class AchievementList extends Component {
     constructor(props) {
@@ -104,7 +292,7 @@ export default class AchievementList extends Component {
 
     //The input
     inputField = (value, field, field2) => (
-        <input
+        <AggInput
             type="text"
             placeholder={field2}
             onChange={(e) => this.inputTextChange(e.target.value, field)}
@@ -132,39 +320,43 @@ export default class AchievementList extends Component {
 
         return (
             <>
-                <div>
-                    <input
+                {/* Search Box */}
+                <SeacrLabel>Looking For Something?</SeacrLabel>
+                <SearchDiv>
+                    <Search
                         onChange={(e) => this.textChange(e, "searchText")}
                         placeholder="Search"
                         className="filter-field"
                         type="text"
                         value={searchText}
                     />
-                </div>
-
-                {/* Button That Reveals Modal ReacStrap: Colapse*/}
-                <div>
-                    <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>+</Button>
+                    <SearchBtn href="#">
+                        {element}
+                    </SearchBtn>
+                    {/* Button That Reveals Modal ReacStrap: Colapse*/}
+                </SearchDiv>
+                <ButtonAgg onClick={this.toggle}>¡.........................!</ ButtonAgg>
+                <CollapseFlex>
                     <Collapse isOpen={this.state.collapse}>
                         <Card>
-                            <CardBody>
+                            <CardBodys>
                                 <form className="" onSubmit={(e) => this.createAchievement(e)}>
                                     {this.inputField(name, 'name', 'Name of Achievemente')}
                                     {this.inputField(points, 'points', 'Points')}
-                                    <button type="submit" className="">Accept</button>
+                                    <ButtonAc type="submit" className="">Accept</ButtonAc>
                                 </form>
-                            </CardBody>
+                            </CardBodys>
                         </Card>
                     </Collapse>
-                </div>
+                </CollapseFlex>
 
                 {/* Maps With a Sort, And if it doesn't Maps it shows error */}
                 {achievementeEror && <p>An error ocurred creating Achievements</p>}
-                {filteredAchieve.sort((a, b) => a.points - b.points).map(({ id, points, name }) => (
-                    <>
+                {filteredAchieve.sort((a, b) => b.points - a.points).map(({ id, points, name }) => (
+                    <AchieveFlex>
                         <Achieve points={points} name={name} />
-                        <button onClick={(e) => this.deleateAchievement(e, id)}>Delete</button>
-                    </>
+                        <ButtonDel onClick={(e) => this.deleateAchievement(e, id)}>Delete</ButtonDel>
+                    </AchieveFlex>
                 ))}
             </>
         );
