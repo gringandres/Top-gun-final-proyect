@@ -97,7 +97,6 @@ const ButtonAgg = styled.button`
     left: 9%;
     padding: 10px 20px;
     font-size: 15px;
-    font-family: "montserrat";
     border: 1px solid #62E52C;
     cursor: pointer;
     color:transparent;

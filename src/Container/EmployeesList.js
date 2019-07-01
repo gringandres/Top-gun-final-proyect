@@ -99,7 +99,6 @@ const ButtonAgg = styled.button`
     left: 9%;
     padding: 10px 20px;
     font-size: 15px;
-    font-family: "montserrat";
     border: 1px solid #62E52C;
     cursor: pointer;
     color:transparent;
@@ -170,7 +169,6 @@ const AggInput = styled.input`
     border: 2px solid #253746;
     transition: 0.6s;
     margin-right:2px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
     &::placeholder{
         color: #253746;
 
