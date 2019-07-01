@@ -8,7 +8,7 @@ const Figured = styled.figure`
     margin: 5px 15% 5px 15%;
 `;
 
-const Info = styled.figcaption`
+const Info = styled.span`
     text-align:center;
     color: #62E52C;
     background-color: #253746;

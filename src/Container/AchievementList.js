@@ -55,20 +55,6 @@ const SearchBtn = styled.a`
     transition: 0.4s;
 `;
 
-const SeacrLabel = styled.div`
-    position: absolute;
-    top:27%;
-    left: 61%;
-    font-size: 16px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background: #253746;
-    color: #62E52C;
-    border: 10px solid  #253746;
-    border-radius: 50px;
-    
-`;
-
-
 const SearchDiv = styled.div`
     position: absolute;
     left: 84%;
@@ -81,6 +67,21 @@ const SearchDiv = styled.div`
     :hover > ${Search}{
         width: 150px;
         padding: 0 6px;
+    }
+    @media screen and (max-width: 768px){
+        :hover > ${SearchBtn}{
+        position: absolute;
+        top: 22%;
+        left: 80%;
+        }
+    }
+    @media screen and (max-width: 576px){
+        :hover{
+            left: 84%;
+            top: 32%;
+        }
+        left: 84%;
+        top: 32%;
     }
     :hover > ${SearchBtn}{
         background: black;
@@ -267,7 +268,8 @@ export default class AchievementList extends Component {
             newAchievement: {        // the new array, Dont haco to concat because we are posting it
                 name: "",
                 points: 0,
-            }
+            },
+            collapse: false
         }))
     }
 
@@ -321,7 +323,6 @@ export default class AchievementList extends Component {
         return (
             <>
                 {/* Search Box */}
-                <SeacrLabel>Looking For Something?</SeacrLabel>
                 <SearchDiv>
                     <Search
                         onChange={(e) => this.textChange(e, "searchText")}

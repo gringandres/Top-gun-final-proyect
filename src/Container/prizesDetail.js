@@ -19,10 +19,20 @@ const CardForm = styled.form`
     border-radius: 50px;
     width: 30%;
     align-self: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     &:hover{
         box-shadow: 0 8px 16px 0 rgba(98,229,44,5);
     }
+    @media screen and (max-width: 758px){
+            width:50%;
+    }
+    @media screen and (max-width: 520px){
+            width:60%;
+    }
+    @media screen and (max-width: 424px){
+            width:60%;
+    }
+
 `;
 
 const Img = styled.img`

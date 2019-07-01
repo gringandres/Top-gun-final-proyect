@@ -21,6 +21,10 @@ const StyledLink = styled(Link)`
     :hover{
         color: #62E52C;
     }
+    &:focus{
+        color: #62E52C;
+
+    }
 `;
 
 //NaveBar
@@ -36,6 +40,8 @@ const Logo = styled.img`
     float: left;
     width: 80px;
     height:80px;
+    margin-top: 10px;
+    margin-left: 20px;
 `;
 
 const ShowBar = styled.label`
@@ -58,7 +64,7 @@ const HideBar = styled.label`
     @media screen and (max-width:768px){
         display: block;
         position: absolute;
-        top: 40px;
+        top: 10px;
         right: 40px;
     }
 `;
@@ -68,15 +74,13 @@ const MenuBar = styled.ul`
     line-height: 100px;
 
     @media screen and (max-width:768px){
-        position: fixed;
+        position: absolute;
         width: 100%;
-        height: 100vh;
+        height: 10%;
         background: #253746;
         right: -100%;
         top: 0;
-        text-align: center;
         padding: 80px 0;
-        line-height: normal;
         transition: 0.7s;
         transition:none;
     }
@@ -102,9 +106,15 @@ const List = styled.a`
     text-decoration: none;
     padding: 0 10px;
 
-    @media screen and (max-width:768px){
-        display: block;
-        padding: 20px;
+    @media screen and (max-width: 768px){
+        margin:left;
+        padding: 5px;
+        margin-left: 20px;
+    }
+    @media screen and (max-width: 576px){
+        margin:left;
+        padding: 10px;
+        font-size: 10px;
     }
 `;
 
@@ -139,22 +149,6 @@ export default function Navbar() {
                         <CloseNav>{X}</CloseNav>
                     </HideBar>
                 </MenuBar>
-
-
-
-
-                {/* <ListItemsNavBar><Img src={logo} alt=""></Img></ListItemsNavBar> */}
-                {/* <Link to={`/employees`}>
-                    <ListItemsNavBar><p>Employees</p></ListItemsNavBar>
-                </Link>
-                <Link to={`/prizes`}>
-                    <ListItemsNavBar><p>Prizes</p> </ListItemsNavBar>
-                </Link>
-                <Link to={`/achievements`}>
-                    <ListItemsNavBar><p>Achievements</p> </ListItemsNavBar>
-                </Link>
-                <RightItemNavBar><p>Log out</p></RightItemNavBar>
-                <RightItemNavBar><p>Profile</p></RightItemNavBar> */}
             </Header>
         </>
     )

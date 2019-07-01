@@ -55,18 +55,6 @@ const SearchBtn = styled.a`
     transition: 0.4s;
 `;
 
-const SeacrLabel = styled.div`
-    position: absolute;
-    top:27%;
-    left: 61%;
-    font-size: 16px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background: #253746;
-    color: #62E52C;
-    border: 10px solid  #253746;
-    border-radius: 50px;
-    
-`;
 
 const SearchDiv = styled.div`
     position: absolute;
@@ -80,6 +68,21 @@ const SearchDiv = styled.div`
     :hover > ${Search}{
         width: 150px;
         padding: 0 6px;
+    }
+    @media screen and (max-width: 768px){
+        :hover > ${SearchBtn}{
+        position: absolute;
+        top: 22%;
+        left: 80%;
+        }
+    }
+    @media screen and (max-width: 576px){
+        :hover{
+            left: 84%;
+            top: 32%;
+        }
+        left: 84%;
+        top: 32%;
     }
     :hover > ${SearchBtn}{
         background: black;
@@ -133,20 +136,21 @@ const ButtonAgg = styled.button`
 
 `;
 
-const ButtonAccept = styled.div`
+const ButtonAccept = styled.button`
     padding-left:2px;
     padding-right:2px;
     border-radius: 10px;
-    text-align: center;
+    margin-bottom:10px;
+    margin: 0px;
     color: #62E52C;
     background: #253746;
     border: 2px solid #62E52C;
     transition: 0.6s;
-    margin: 10px 40% 0px 40%;
+    margin-left:5px;
+    margin-right: 0;
     &:hover{
         border: 2px solid #F67B27;
     }
-
 `;
 
 const CollapseFlex = styled.div`
@@ -276,7 +280,8 @@ export default class PrizesList extends Component {
                 points: 0,
                 imgSrc: "",
                 description: ""
-            }
+            },
+            collapse: false
         }))
     }
 
@@ -313,7 +318,6 @@ export default class PrizesList extends Component {
 
         return (
             <>
-                <SeacrLabel>Looking For A Prize??</SeacrLabel>
                 <SearchDiv>
                     <Search
                         onChange={(e) => this.textChange(e, "searchText")}

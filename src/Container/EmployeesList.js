@@ -56,19 +56,6 @@ const SearchBtn = styled.a`
     transition: 0.4s;
 `;
 
-const SeacrLabel = styled.div`
-    position: absolute;
-    top:27%;
-    left: 61%;
-    font-size: 16px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background: #253746;
-    color: #62E52C;
-    border: 10px solid  #253746;
-    border-radius: 50px;
-    
-`;
-
 
 const SearchDiv = styled.div`
     position: absolute;
@@ -82,6 +69,21 @@ const SearchDiv = styled.div`
     :hover > ${Search}{
         width: 150px;
         padding: 0 6px;
+    }
+    @media screen and (max-width: 768px){
+        :hover > ${SearchBtn}{
+        position: absolute;
+        top: 22%;
+        left: 80%;
+        }
+    }
+    @media screen and (max-width: 576px){
+        :hover{
+            left: 84%;
+            top: 32%;
+        }
+        left: 84%;
+        top: 32%;
     }
     :hover > ${SearchBtn}{
         background: black;
@@ -135,7 +137,7 @@ const ButtonAgg = styled.button`
 
 `;
 
-const ButtonAccept = styled.div`
+const ButtonAccept = styled.button`
     padding-left:2px;
     padding-right:2px;
     border-radius: 10px;
@@ -257,8 +259,7 @@ export default class EmployeesList extends Component {
                 area,
                 points,
                 imgSrc,
-            },
-            collapse
+            }
         } = this.state;
 
         axios.post(`${BASE_LOCAL_ENDPOINT}/employees`, {
@@ -334,7 +335,6 @@ export default class EmployeesList extends Component {
         return (
             <>
                 {/* Search Box */}
-                <SeacrLabel>Looking For Someone?</SeacrLabel>
                 <SearchDiv>
                     <Search
                         onChange={(e) => this.textChange(e, "searchText")}

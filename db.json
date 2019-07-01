@@ -1,12 +1,12 @@
 {
   "employees": [
     {
-      "id": 1,
-      "name": "elliot watts",
+      "imgSrc": "",
+      "name": "Elliot Watts",
       "job": "Bussiness Representative",
       "area": "Development",
-      "imgSrc": "https://randomuser.me/api/portraits/men/36.jpg",
-      "points": 9
+      "points": "9",
+      "id": 1
     },
     {
       "id": 3,
