@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Top-gun-final-proyect/static/css/main.ecd8e540.chunk.css",
+    "main.js": "/Top-gun-final-proyect/static/js/main.42f7b0e9.chunk.js",
+    "main.js.map": "/Top-gun-final-proyect/static/js/main.42f7b0e9.chunk.js.map",
+    "runtime~main.js": "/Top-gun-final-proyect/static/js/runtime~main.4d5f1c54.js",
+    "runtime~main.js.map": "/Top-gun-final-proyect/static/js/runtime~main.4d5f1c54.js.map",
+    "static/css/2.43d354e1.chunk.css": "/Top-gun-final-proyect/static/css/2.43d354e1.chunk.css",
+    "static/js/2.c61f6ded.chunk.js": "/Top-gun-final-proyect/static/js/2.c61f6ded.chunk.js",
+    "static/js/2.c61f6ded.chunk.js.map": "/Top-gun-final-proyect/static/js/2.c61f6ded.chunk.js.map",
+    "index.html": "/Top-gun-final-proyect/index.html",
+    "precache-manifest.f8ffd89afce3ccef4e41e45684ef99c2.js": "/Top-gun-final-proyect/precache-manifest.f8ffd89afce3ccef4e41e45684ef99c2.js",
+    "service-worker.js": "/Top-gun-final-proyect/service-worker.js",
+    "static/css/2.43d354e1.chunk.css.map": "/Top-gun-final-proyect/static/css/2.43d354e1.chunk.css.map",
+    "static/css/main.ecd8e540.chunk.css.map": "/Top-gun-final-proyect/static/css/main.ecd8e540.chunk.css.map"
+  }
+}
