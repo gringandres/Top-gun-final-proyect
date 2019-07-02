@@ -206,7 +206,7 @@ export default class prizesDetail extends Component {
             this.setState({
                 look: "text",
                 lookButton: "hidden",
-                lookAccept: "button"
+                lookAccept: "submit"
             })
         } else {
             this.setState({
@@ -269,7 +269,7 @@ export default class prizesDetail extends Component {
                 {/* // Redirect so it doesn't print and leaves to employees */}
                 {redirect && <Redirect to='/prizes' />}
                 <TitleStyle>Prize</TitleStyle>
-                <CardForm className="field-group">
+                <CardForm onSubmit={(e) => this.editPrize(e)}>
                     <Img src={imgSrc} alt="" />
                     <Container>
                         {this.inputField(imgSrc2, imgSrc, "imgSrc2", look)}
@@ -285,7 +285,7 @@ export default class prizesDetail extends Component {
                         
                         <ButtonDel onClick={(e) => this.deleatePrize(e)}>Delete</ButtonDel>
                         <InputButton type={lookButton} value="Edit" onClick={(e) => this.change(e)}></InputButton>
-                        <InputButton type={lookAccept} value="Accept!" onClick={(e) => this.editPrize(e)}></InputButton>
+                        <InputButton type={lookAccept} value="Accept!"></InputButton>
                     </Container>
                 </CardForm>
             </AllPage>
